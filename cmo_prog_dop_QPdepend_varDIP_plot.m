@@ -5,36 +5,36 @@ ini=cmo_prog.cmo_ini(param);
 dopuse='QP'; %1,DIP 2,QP 3,''
 nulim=''; %1,NP 2,N 3,P 4,''
 mort='mort2dop';  %1,mort2dip 2,mort2dop
-APArate=''; %1,linear; 2,nonliear; 3.''
-[T1, Y1] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate1 = cmo_prog.cmo_rate(Y1,param,dopuse,nulim,mort,APArate);
+APA='implicit'; %1,implicit; 2,explicit
+[T1, Y1] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate1 = cmo_prog.cmo_rate(Y1,param,dopuse,nulim,mort,APA);
 ini.DIP0=0.2;
-[T2, Y2] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate2 = cmo_prog.cmo_rate(Y2,param,dopuse,nulim,mort,APArate);
+[T2, Y2] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate2 = cmo_prog.cmo_rate(Y2,param,dopuse,nulim,mort,APA);
 ini.DIP0=0.3;
-[T3, Y3] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate3 = cmo_prog.cmo_rate(Y3,param,dopuse,nulim,mort,APArate);
+[T3, Y3] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate3 = cmo_prog.cmo_rate(Y3,param,dopuse,nulim,mort,APA);
 ini.DIP0=0.4;
-[T4, Y4] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate4 = cmo_prog.cmo_rate(Y4,param,dopuse,nulim,mort,APArate);
+[T4, Y4] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate4 = cmo_prog.cmo_rate(Y4,param,dopuse,nulim,mort,APA);
 ini.DIP0=0.5;
-[T5, Y5] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate5 = cmo_prog.cmo_rate(Y5,param,dopuse,nulim,mort,APArate);
+[T5, Y5] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate5 = cmo_prog.cmo_rate(Y5,param,dopuse,nulim,mort,APA);
 ini.DIP0=0.6;
-[T6, Y6] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate6 = cmo_prog.cmo_rate(Y6,param,dopuse,nulim,mort,APArate);
+[T6, Y6] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate6 = cmo_prog.cmo_rate(Y6,param,dopuse,nulim,mort,APA);
 ini.DIP0=0.7;
-[T7, Y7] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate7 = cmo_prog.cmo_rate(Y7,param,dopuse,nulim,mort,APArate);
+[T7, Y7] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate7 = cmo_prog.cmo_rate(Y7,param,dopuse,nulim,mort,APA);
 ini.DIP0=0.8;
-[T8, Y8] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate8 = cmo_prog.cmo_rate(Y8,param,dopuse,nulim,mort,APArate);
+[T8, Y8] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate8 = cmo_prog.cmo_rate(Y8,param,dopuse,nulim,mort,APA);
 ini.DIP0=0.9;
-[T9, Y9] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate9 = cmo_prog.cmo_rate(Y9,param,dopuse,nulim,mort,APArate);
+[T9, Y9] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate9 = cmo_prog.cmo_rate(Y9,param,dopuse,nulim,mort,APA);
 ini.DIP0=1.0;
-[T10, Y10] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APArate);
-rate10 = cmo_prog.cmo_rate(Y10,param,dopuse,nulim,mort,APArate);
+[T10, Y10] = cmo_prog.cmo_prog(param,ini,dopuse,nulim,mort,APA);
+rate10 = cmo_prog.cmo_rate(Y10,param,dopuse,nulim,mort,APA);
 
 DIN=[Y1(:,1),Y2(:,1),Y3(:,1),Y4(:,1),Y5(:,1),Y6(:,1),Y7(:,1),Y8(:,1),Y9(:,1),Y10(:,1)];
 DIP=[Y1(:,2),Y2(:,2),Y3(:,2),Y4(:,2),Y5(:,2),Y6(:,2),Y7(:,2),Y8(:,2),Y9(:,2),Y10(:,2)];
@@ -65,110 +65,110 @@ figure(1),
 subplot(3,3,1)
 plot(T1,DIN)
 ylabel('DIN')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(3,3,2)
 plot(T1,DIP)
 ylabel('DIP')
- legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+ legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(3,3,3)
 plot(T1,PhyC)
 ylabel('PhyC')
- legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+ legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(3,3,4)
 plot(T1,PhyN)
 ylabel('PhyN')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(3,3,5)
 plot(T1,PhyP)
 ylabel('PhyP')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(3,3,6)
 plot(T1,Chl)
 ylabel('Chl')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(3,3,7)
 plot(T1,NT)
 ylabel('NT')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(3,3,8)
 plot(T1,PT)
 ylabel('PT')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(3,3,9)
 plot(T1,DOP)
 ylabel('DOP')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 figure(2),
 subplot(4,4,1)
 plot(T1,rate.QN)
 ylabel('QN')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,2)
 plot(T1,rate.QP)
 ylabel('QP')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,3)
 plot(T1,rate.fV)
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 ylabel('fV')
 subplot(4,4,4)
 plot(T1,rate.fN)
 ylabel('fN')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,5)
 plot(T1,rate.fC)
 ylabel('fC')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,6)
 plot(T1,rate.VN)
 ylabel('VN')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,7)
 plot(T1,rate.VP)
 ylabel('VP')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,8)
 plot(T1,rate.VC)
 ylabel('VC')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,9)
 plot(T1,rate.theta)
 ylabel('theta')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,10)
 plot(T1,rate.tch)
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 ylabel('tch')
 subplot(4,4,11)
 plot(T1,rate.VNh0)
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 ylabel('VNh0')
 subplot(4,4,12)
 plot(T1,rate.VPh0)
 ylabel('VPh0')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,13)
 plot(T1,PhyN./PhyP)
 ylabel('cellular N/P')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(4,4,14)
 plot(T1,rate.A)
 ylabel('A')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
  subplot(4,4,15)
  plot(T1,rate.VDOP)
  ylabel('VDOP')
- legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+ legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
  subplot(4,4,16)
  plot(T1,rate.VDIP)
  ylabel('VDIP')
- legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+ legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 figure(3),
 subplot(2,1,1)
 plot(T1,rate.lys./2.*PhyP)
 ylabel('Lysis-DOP')
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 subplot(2,1,2)
 plot(T1,rate.lys.*PhyC)
-legend('0.2','0.4','0.6','0.8','1.0','1.2','1.4','1.6','1.8','2.0')
+legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0')
 ylabel('Lysis-DOC')
