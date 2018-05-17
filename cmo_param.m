@@ -23,3 +23,7 @@ param.kqp   = 0.2;
 %% 
 param.klys =0.003*24; % unit: /d, specific rate of lysis at opt.T with 
                       %           no nutrient limitation
+%% 
+param.lamda_dop=0.5; % unit: /d, rate of DOP remineralization to DIP independant on APA
+%%
+param.APA=1;% unit:

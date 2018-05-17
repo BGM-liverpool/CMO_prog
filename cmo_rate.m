@@ -1,4 +1,4 @@
-function rate = cmo_rate(y, param, dopuse, nulim)
+function rate = cmo_rate(y, param, dopuse, nulim, mort, APArate)
 %
 DIN  = y(:,1); % unit: umolN/L
 DIP  = y(:,2); % unit: umolP/L
@@ -42,7 +42,14 @@ rate.fDOP = (param.Q0P./rate.QP).^2./((param.Q0P./rate.QP).^2+param.kqp);  % Fac
 else
 rate.fDOP=0;      
 end
-rate.ap   = param.A0.*(DIP+rate.fDOP.*DOP); % d-1
+if strcmp(APArate,'linear')
+   rate.util_DOP=param.APA.*rate.fDOP.*DOP;
+elseif strcmp(APArate,'nonlinear')
+   rate.util_DOP=rate.fDOP.*DOP;
+else 
+   rate.util_DOP=rate.fDOP.*DOP;
+end
+rate.ap   = param.A0.*(DIP+rate.util_DOP); % d-1
 rate.VNh0 = (sqrt(1./rate.VNmax)+sqrt(1./rate.an)).^(-2);% Local potential N aquisition rate, mol/mol/d
 rate.VPh0 = (sqrt(1./param.V0P)+sqrt(1./rate.ap)).^(-2);% Local potential P aquisition rate, mol/mol/d
 rate.B =  sqrt(rate.VNh0./rate.VNmax)./(rate.QP./param.Q0P - 1.0);% shorthand,dimensionless    
@@ -51,13 +58,14 @@ rate.fN = 1.0./(1.0 + sqrt(rate.B.*rate.QP.*rate.VNh0./(rate.QN.*rate.VPh0)));% 
 %          ./rate.VNmax).^(1.5));
 rate.VN = rate.fV.*rate.fN.*rate.VNh0; % N aquisition rate, mol/mol/d
 rate.VP = rate.fV.*(1-rate.fN).*rate.VPh0;% Total P aquisition rate, mol/mol/d
-rate.VDOP = max(0,rate.VP.*(rate.fDOP.*DOP)./(DIP+rate.fDOP.*DOP));% DOP aquisition rate, mol/mol/d
+rate.VDOP = max(0,rate.VP.*(rate.util_DOP)./(DIP+rate.util_DOP));% DOP aquisition rate, mol/mol/d
 rate.VDIP = rate.VP-rate.VDOP;% DIP aquisition rate, mol/mol/d
 rate.VC0= rate.fC.*rate.A - param.zN.*rate.VN; % gross C aquisition rate, mol/mol/d
 rate.XC = max(rate.VC0.*param.Q0P./rate.QP-rate.VP./param.Q0P,0)...
           .*max(2-rate.QP./param.Q0P,0); % DOC release rate to avoid outgrowing Q0P, mol/mol/d
 rate.VC = rate.VC0- rate.XC;% C aquisition rate, mol/mol/d
 rate.QNmax = param.Q0N.*(1+sqrt(1+1./param.zN./param.Q0N)); % Maximum QN, mol/mol
+%%%%%%%%%%%%%%%%%%%%%%%%%   exudate     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if strcmp(nulim,'NP') % both N and P limitation
 rate.nulim = min(param.Q0P./rate.QP, (1./rate.QN-1./rate.QNmax)...
              ./(1./param.Q0N+1./rate.QNmax)); % N and P limitation factor, dimensionless 
@@ -70,7 +78,12 @@ rate.nulim = 1;
 param.klys = 0;
 end
 rate.lys = param.klys.*(1+7.5.*(1-rate.nulim)); % DOC lysis rate, d-1
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% DOP remineralization to DIP in dependent on APA %%%%%%%%%%
+if strcmp(mort,'mort2dop')
+rate.doprem=param.lamda_dop.*DOP;
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rate.mortC   = param.mq.*PhyC.^2; %phytoplanlton C mortality, umol/L/d
 rate.mortN   = rate.mortC.*rate.QN; %phytoplanlton N mortality, umol/L/d
 rate.mortP   = rate.mortC.*rate.QP; %phytoplanlton P mortality, umol/L/d
