@@ -97,5 +97,5 @@ rate.mortC   = param.mq.*PhyC.^2; %phytoplanlton C mortality, umol/L/d
 rate.mortN   = rate.mortC.*rate.QN; %phytoplanlton N mortality, umol/L/d
 rate.mortP   = rate.mortC.*rate.QP; %phytoplanlton P mortality, umol/L/d
 rate.mortChl = rate.mortC.*rate.theta; %%phytoplanlton Chl mortality, ugChl/L/d
-rate.Pchl    = (rate.VC+rate.rctht.*PhyC+rate.dtdq.*(rate.VN-rate.VC.*rate.QN)).*rate.theta;% Phytoplankton Chl change rate due to growth, ugChl/L/d 
+rate.rchl    = rate.VC+rate.rctht+rate.dtdq.*(rate.VN-rate.VC.*rate.QN);% Phytoplankton Chl change rate due to growth, d-1 
 

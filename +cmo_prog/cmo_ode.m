@@ -14,7 +14,7 @@ dydt(:,1) = - rate.VN.*PhyC + rate.mortN;    %unit: umolN/L
 dydt(:,3) =   rate.VC.*PhyC - rate.mortC-rate.lys.*PhyC;    %unit: umolC/L
 dydt(:,4) =   rate.VN.*PhyC-rate.mortN - param.Q0N.*dydt(:,3);   %unit: umolN/L
 dydt(:,5) =   rate.VP.*PhyC-rate.mortP - param.Q0P.*dydt(:,3)-rate.lys.*PhyP;   %unit: umolP/L
-dydt(:,6) =   rate.Pchl - rate.mortChl; %unit: ugChl/L
+dydt(:,6) =   rate.rchl.*Chl - rate.mortChl; %unit: ugChl/L
 if strcmp(mort,'mort2dip')
   if strcmp(APA,'implicit')
      dydt(:,2) = - rate.VDIP.*PhyC + rate.mortP; %unit: umolP/L
